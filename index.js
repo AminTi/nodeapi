@@ -1,10 +1,108 @@
 const express = require("express");
+const router = express.Router();
 const cors = require("cors");
+const swaggerUi = require("swagger-ui-express");
+const swaggerJsdoc = require("swagger-jsdoc");
 const User = require("./confing");
+const { v4: uuidv4 } = require("uuid");
+
+const options = {
+  definition: {
+    openapi: "3.0.0",
+    info: {
+      title: "Book Api Library",
+      version: "1.0.0",
+    },
+    servers: [{ url: "http://localhost:4000" }],
+  },
+  apis: ["./index.js"], // files containing annotations as above
+};
+
+const specs = swaggerJsdoc(options);
 const app = express();
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(specs));
 app.use(express.json());
 app.use(cors());
-const { v4: uuidv4 } = require("uuid");
+
+/**
+ * @swagger
+ * components:
+ *   schemas:
+ *     Book:
+ *       type: object
+ *       required:
+ *         - book
+ *         - language
+ *         -  year
+ *       properties:
+ *         book:
+ *           type: string
+ *           description: The book title
+ *         id:
+ *           type: string
+ *           description: The auto-generated id of the book
+ *         language:
+ *           type: string
+ *           description: The book language
+ *         year:
+ *           type: string
+ *           description: The book year of expedition
+ *       example:
+ *         id: d5fE_asz
+ *         book: Alkhemist
+ *         language: francis
+ *         year: "1996"
+ */
+
+/**
+ * @swagger
+ * tags:
+ *   name: Book
+ *   description: The books managing API
+ */
+
+// /**
+//  * @swagger
+//  * /create:
+//  *   post:
+//  *     summary: Create a book
+//  *     tags: {Book}
+//  *       requestBody:
+//  *      required: true
+//  *      content:
+//  *        application/json:
+//  *     responses:
+//  *       201:
+//  *         description:  book data
+//  *         content:
+//  *           application/json:
+//  *             schema:
+//  *                 items:
+//  *                 $ref: '#/components/schemas/Book'
+//  */
+
+/**
+ * @swagger
+ * /create:
+ *   post:
+ *     summary: Create a new task
+ *     tags: {Book}
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/Book'
+ *     responses:
+ *       201:
+ *         description: The task was successfully created
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Book'
+ *       500:
+ *         description: Bad request
+ */
 
 app.post("/create", async (req, res) => {
   try {
@@ -15,10 +113,10 @@ app.post("/create", async (req, res) => {
       year: req.body.year,
     };
     await User.add(data);
-    return res.status(201).send({ msg: "succes" });
+    return res.status(201).send(data);
   } catch (err) {
     console.log(err);
-    return res.status(500).send({ msg: "Failed" });
+    return res.status(500).send({ msg: "Failed 500" });
   }
 });
 
