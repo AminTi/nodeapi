@@ -6,6 +6,8 @@ const swaggerJsdoc = require("swagger-jsdoc");
 const User = require("./confing");
 const { v4: uuidv4 } = require("uuid");
 
+const PORT = "https://github.com/heroku/node-js-getting-started.git";
+
 const options = {
   definition: {
     openapi: "3.0.0",
@@ -13,7 +15,7 @@ const options = {
       title: "Book Api Library",
       version: "1.0.0",
     },
-    servers: [{ url: "https://nodeapibyamintiti.herokuapp.com" }],
+    servers: [{ url: port }],
   },
   apis: ["./index.js"], // files containing annotations as above
 };
@@ -182,4 +184,4 @@ app.delete("/delete/:id", async (req, res) => {
   }
 });
 
-app.listen(4000, () => console.log("Nodemon server port 4000"));
+app.listen(PORT, () => console.log("Nodemon server port heroku"));
