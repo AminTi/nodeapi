@@ -13,7 +13,7 @@ const options = {
       title: "Book Api Library",
       version: "1.0.0",
     },
-    servers: [{ url: "http://localhost:4000" }],
+    servers: [{ url: "https://nodeapibyamintiti.herokuapp.com" }],
   },
   apis: ["./index.js"], // files containing annotations as above
 };
