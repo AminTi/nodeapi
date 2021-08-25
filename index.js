@@ -17,7 +17,7 @@ const options = {
     },
     servers: [{ url: "http://localhost:4000" }],
   },
-  apis: ["./index.js"], // files containing annotations as above
+  apis: ["./index.js"], // files containing annotations as abovee
 };
 
 const specs = swaggerJsdoc(options);
