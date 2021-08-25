@@ -124,7 +124,7 @@ app.post("/create", async (req, res) => {
 
 /**
  * @swagger
- * /Read:
+ * /read:
  *   get:
  *     summary: Create a new task
  *     tags: [Book]
