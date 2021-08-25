@@ -6,7 +6,7 @@ const swaggerJsdoc = require("swagger-jsdoc");
 const User = require("./confing");
 const { v4: uuidv4 } = require("uuid");
 
-const PORT = "http://localhost:4000";
+const PORT = process.env.PORT || 4000;
 
 const options = {
   definition: {
@@ -15,7 +15,7 @@ const options = {
       title: "Book Api Library",
       version: "1.0.0",
     },
-    servers: [{ url: "http://localhost:4000" }],
+    servers: [{ url: PORT }],
   },
   apis: ["./index.js"], // files containing annotations as abovee
 };
@@ -280,4 +280,4 @@ app.delete("/delete/:id", async (req, res) => {
  *         description: The book was not found
  */
 
-app.listen(4000, () => console.log("Nodemon server port heroku  page"));
+app.listen(PORT, () => console.log(`nodemon serve ${PORT}`));
