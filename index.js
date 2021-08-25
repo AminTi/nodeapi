@@ -122,6 +122,29 @@ app.post("/create", async (req, res) => {
   }
 });
 
+/**
+ * @swagger
+ * /Read:
+ *   get:
+ *     summary: Create a new task
+ *     tags: [Book]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/Book'
+ *     responses:
+ *       201:
+ *         description: The task was successfully created
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Book'
+ *       500:
+ *         description: Bad request
+ */
+
 app.get("/read", async (req, res) => {
   try {
     const snapshot = await User.get();
