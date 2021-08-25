@@ -6,7 +6,7 @@ const swaggerJsdoc = require("swagger-jsdoc");
 const User = require("./confing");
 const { v4: uuidv4 } = require("uuid");
 
-const PORT = "https://github.com/heroku/node-js-getting-started.git";
+const PORT = "http://localhost:4000";
 
 const options = {
   definition: {
@@ -15,7 +15,7 @@ const options = {
       title: "Book Api Library",
       version: "1.0.0",
     },
-    servers: [{ url: port }],
+    servers: [{ url: "http://localhost:4000" }],
   },
   apis: ["./index.js"], // files containing annotations as above
 };
@@ -50,8 +50,8 @@ app.use(cors());
  *           type: string
  *           description: The book year of expedition
  *       example:
- *         id: d5fE_asz
  *         book: Alkhemist
+ *         id: "deMQuIvACuMfr7QyZUXShj"
  *         language: francis
  *         year: "1996"
  */
@@ -68,7 +68,7 @@ app.use(cors());
 //  * /create:
 //  *   post:
 //  *     summary: Create a book
-//  *     tags: {Book}
+//  *     tags: [Book]
 //  *       requestBody:
 //  *      required: true
 //  *      content:
@@ -88,7 +88,7 @@ app.use(cors());
  * /create:
  *   post:
  *     summary: Create a new task
- *     tags: {Book}
+ *     tags: [Book]
  *     requestBody:
  *       required: true
  *       content:
@@ -155,6 +155,31 @@ app.get("/:id", async (req, res) => {
   }
 });
 
+/**
+ * @swagger
+ * /{id}:
+ *   get:
+ *     summary: Get the Book by id
+ *     tags: [Book]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: The Book id
+ *     responses:
+ *       200:
+ *         description: The task description by id
+ *         contens:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Book'
+ *       500:
+ *         description: The book was not found
+ *
+ * */
+
 app.put("/update/:id", async (req, res) => {
   try {
     const data = {
@@ -171,6 +196,35 @@ app.put("/update/:id", async (req, res) => {
     return res.status(500).send({ msg: "failed" });
   }
 });
+/**
+ * @swagger
+ * /update/{id}:
+ *  put:
+ *    summary: Update the book by the id
+ *    tags: [Book]
+ *    parameters:
+ *      - in: path
+ *        name: id
+ *        schema:
+ *          type: string
+ *        required: true
+ *        description: The book id
+ *    requestBody:
+ *      required: true
+ *      content:
+ *        application/json:
+ *          schema:
+ *            $ref: '#/components/schemas/Book'
+ *    responses:
+ *      200:
+ *        description: The Task was updated
+ *        content:
+ *          application/json:
+ *            schema:
+ *              $ref: '#/components/schemas/Book'
+ *      500:
+ *        description: Some error happened
+ */
 
 app.delete("/delete/:id", async (req, res) => {
   try {
@@ -183,5 +237,24 @@ app.delete("/delete/:id", async (req, res) => {
     return res.status(500).send({ msg: "failed" });
   }
 });
+/**
+ * @swagger
+ * /delete/{id}:
+ *   delete:
+ *     summary: Remove the Book by id
+ *     tags: [Book]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: The book id
+ *     responses:
+ *       200:
+ *         description: The book was deleted
+ *       500:
+ *         description: The book was not found
+ */
 
-app.listen(PORT, () => console.log("Nodemon server port heroku  page"));
+app.listen(4000, () => console.log("Nodemon server port heroku  page"));
