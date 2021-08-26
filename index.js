@@ -17,7 +17,7 @@ const options = {
     },
     servers: [{ url: PORT }],
   },
-  apis: ["./index.js"], // files containing annotations as abovee
+  apis: ["./index.js"], // files containing annotations as above
 };
 
 const specs = swaggerJsdoc(options);
