@@ -6,9 +6,8 @@ const swaggerJsdoc = require("swagger-jsdoc");
 const User = require("./confing");
 const { v4: uuidv4 } = require("uuid");
 
-// const PORT = process.env.PORT || 4000;
+const PORT = process.env.PORT || 4000;
 
-const PORT = "https://nodeapi-6rdb1np8a-nodeappbyamintiti.vercel.app";
 const options = {
   definition: {
     openapi: "3.0.0",
