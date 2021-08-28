@@ -6,7 +6,7 @@ const swaggerJsdoc = require("swagger-jsdoc");
 const User = require("./confing");
 const { v4: uuidv4 } = require("uuid");
 
-// const PORT = process.env.PORT || 4000;
+const PORT = process.env.PORT || 4000;
 
 const options = {
   definition: {
